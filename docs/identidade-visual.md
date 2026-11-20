@@ -1,5 +1,9 @@
 # Mini Knobz: identidade visual
 
+Referência visual oficial do **Mini Knobz** (5 plugins de um botão: BITE, PHAT, KICKSIDE, WIDE, GASP). Atualizado em 20/11/2026; cores conferidas no código (`Source/Dsp/Spec.cpp` e `Source/Common/Editor.cpp`). Imagens em [`img/`](img/).
+
+![As 5 janelas lado a lado](img/telas-todas.png)
+
 ## Regras que não mudam
 
 - As 5 janelas são **idênticas** na estrutura; só a cor de destaque muda.
@@ -18,6 +22,10 @@
 | GASP | violeta | `#A98BFF` |
 
 Nas peças do pacote, os 5 aparecem juntos sempre nessa ordem (BITE, PHAT, KICKSIDE, WIDE, GASP) e as 5 bolinhas coloridas viram o símbolo do pacote ("●●●●● 5 PLUGINS · 1 KNOB CADA").
+
+| BITE | PHAT | KICKSIDE | WIDE | GASP |
+|---|---|---|---|---|
+| ![](img/bite.png) | ![](img/phat.png) | ![](img/kickside.png) | ![](img/wide.png) | ![](img/gasp.png) |
 
 ## Cores de base da interface
 
@@ -52,6 +60,36 @@ Todas em `Assets/Fonts/` (SIL Open Font License).
 
 No KICKSIDE as opções são **desenhos de curva** (não texto), gerados pela mesma função que processa o áudio.
 
+Popup de ajuda (**i**) e o GASP antes de receber áudio:
+
+![Popup de ajuda e GASP vazio](img/popup-ajuda-e-gasp-vazio.png)
+
 ## Peças prontas
 
-Veja [README.md](README.md) para a lista de imagens em `img/`. Story e capas usam as janelas em leque com glow suave nas cores, título "MINI KNOBZ" branco e "Um knob. Som pronto." em gradiente rosa → violeta → ciano.
+### Story 1080×1920 (molde aprovado pelo Ed)
+
+![Story Mini Knobz](img/story-1080x1920.png)
+
+De cima para baixo, tudo centralizado:
+1. Topo livre (~250 px) para a barra do Instagram.
+2. Pílula com as **5 bolinhas** nas cores dos plugins + "5 PLUGINS · 1 KNOB CADA".
+3. **MINI KNOBZ** gigante, branco, Bold.
+4. "Um knob. Som pronto." em gradiente rosa → violeta → ciano.
+5. As **5 janelas em leque**, KICKSIDE no meio e maior, laterais inclinadas e escurecidas, glow suave nas cores.
+6. Nomes dos plugins na cor de cada um: BITE PHAT KICKSIDE WIDE GASP.
+7. **"Os 5 por R$17"** grande + "Pagamento único · Windows e Mac".
+8. "TOQUE NO LINK" + seta. Rodapé livre (~340 px) para o campo de resposta.
+
+Esse molde foi reaproveitado no story do Chord Code Pro (R$37).
+
+### Capas da loja
+
+![Capa 1920x1080](img/capa-1920x1080.png)
+
+Também em 1200×1200 ([`img/capa-1200x1200.png`](img/capa-1200x1200.png)) e sem fundo ([`img/capa-transparente.png`](img/capa-transparente.png)).
+
+### Marca
+
+![Audio Makers](img/logo-audiomakers.png)
+
+Lista completa de imagens: [README.md](README.md).
