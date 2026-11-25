@@ -77,12 +77,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Configure
-        run: cmake -S . -B build -G Xcode -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64"
+        run: cmake -S . -B build -G Xcode -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64" -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0
       - name: Build
         run: |
           T=""
           for p in $PLUGINS; do T="$T Knobz${p}_VST3 Knobz${p}_AU"; done
           cmake --build build --config Release --parallel --target $T KnobzGasp_Standalone knobz_tests
+      - name: Check minimum macOS (must open on Big Sur through Sonoma, not only the runner's macOS)
+        run: |
+          find build -path '*_artefacts/Release/*' -path '*/Contents/MacOS/*' -type f | while read -r b; do
+            for a in arm64 x86_64; do
+              m=$(vtool -arch $a -show-build "$b" | awk '/minos/{print $2}')
+              echo "$b ($a): minos $m"
+              [ "$m" = "11.0" ] || { echo "::error::$b ($a) needs macOS $m"; exit 1; }
+            done
+          done
       - name: Test
         run: ctest --test-dir build -C Release --output-on-failure
       - name: Installer
@@ -108,7 +117,7 @@ jobs:
           OUTLINE="$OUTLINE<line choice=\"gaspapp\"/>"
           CHOICES="$CHOICES<choice id=\"gaspapp\" title=\"Knobz Gasp (app)\" description=\"App em /Applications\"><pkg-ref id=\"com.audiomakers.knobz.gasp.app\"/></choice>"
           REFS="$REFS<pkg-ref id=\"com.audiomakers.knobz.gasp.app\">gasp-app.pkg</pkg-ref>"
-          printf '<?xml version="1.0" encoding="utf-8"?><installer-gui-script minSpecVersion="2"><title>Mini Knobz %s</title><options customize="always" require-scripts="false" hostArchitectures="arm64,x86_64"/><choices-outline>%s</choices-outline>%s%s</installer-gui-script>' "$V" "$OUTLINE" "$CHOICES" "$REFS" > out/dist.xml
+          printf '<?xml version="1.0" encoding="utf-8"?><installer-gui-script minSpecVersion="2"><title>Mini Knobz %s</title><options customize="always" require-scripts="false" hostArchitectures="arm64,x86_64"/><allowed-os-versions><os-version min="11.0"/></allowed-os-versions><choices-outline>%s</choices-outline>%s%s</installer-gui-script>' "$V" "$OUTLINE" "$CHOICES" "$REFS" > out/dist.xml
           productbuild --distribution out/dist.xml --package-path out "Mini Knobz $V Instalador Mac.pkg"
           (cd zips && zip -qr "../Mini Knobz $V VST3 Mac.zip" .)
       - name: Publish Mac installer to the repo

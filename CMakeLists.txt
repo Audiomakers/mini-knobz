@@ -1,10 +1,11 @@
 cmake_minimum_required(VERSION 3.22)
+# Must come before project(): project() creates an empty cache entry and a later
+# set(... CACHE) is ignored, so Xcode targeted the runner's own macOS (26.x) and the
+# plugin refused to load on Sonoma/Ventura.
+set(CMAKE_OSX_DEPLOYMENT_TARGET "11.0" CACHE STRING "Minimum supported macOS version")
 project(MiniKnobz VERSION 1.0.0 LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-if(APPLE)
- set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15" CACHE STRING "Minimum supported macOS version")
-endif()
 if(MSVC)
  set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")  # static CRT: nothing extra to install
 endif()
